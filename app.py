@@ -8,7 +8,8 @@ import pandas as pd
 st.set_page_config(
     page_title="Employee Attrition Analytics",
     page_icon="👥",
-    layout="wide"
+    layout="wide",
+    initial_sidebar_state="expanded"
 )
 
 # -----------------------------
@@ -96,6 +97,39 @@ with col2:
         x_label="Department",
         y_label="Number of Employees"
     )
+
+st.divider()
+   #---------------------------------
+   # MORE ANALYSIS
+   # --------------------------------
+
+st.subheader("Workforce Analysis")
+
+col1, col2= st.columns(2)
+
+with col1:
+    st.markdown("#### Attrition by Overtime")
+    overtime_chart= pd.crosstab(df["OverTime"], df["Attrition"])
+
+    st.bar_chart(
+        overtime_chart,
+        use_container_width=True,
+        x_label="Overtime Status",
+        y_label= "Number of Employees"
+    )
+
+with col2:
+    st.markdown("#### Attrition by Job Satisfaction")
+
+    satisfaction_chart= pd.crosstab(df["JobSatisfaction"], df["Attrition"])
+
+    st.bar_chart(
+        satisfaction_chart,
+        use_container_width=True,
+        x_label="Job Satisfaction Label",
+        y_label="Number of Employees"
+    )
+ 
 
 # -----------------------------
 # Prediction section
